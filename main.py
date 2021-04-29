@@ -1,7 +1,13 @@
+# pylint: disable=no-name-in-module
+# pylint: disable=no-self-argument
 #Import FastAPI class
-#Import List for generic and internal types(type parameters)
+#Import List etc for generic and internal types(type parameters)
+#Import Pydantic model
 from fastapi import FastAPI
 from typing import List, Set, Tuple, Dict, Optional
+from datetime import datetime
+from pydantic import BaseModel
+
 #Create FastAPI instance and store it in app variable
 app = FastAPI()
 #Create path operation decorator
@@ -31,3 +37,32 @@ def say_hi(name: Optional[str] = None):
         print(f'Hey {name}!')
     else:
         print('Hello World')
+
+#It's possible to declare classes as types
+class Person:
+    def __init__(self, name: str):
+        self.name = name
+
+def get_person_name(one_person: Person):
+    return one_person.name
+
+#Pydantic models
+#You declare the "shape" of the data as classes with attributes. Each attribute has a type.
+#Then you create an instance of that class with some values and it will validate the values,
+#convert them to the appropriate type (if that's the case) and give you an object with all the data.
+class User(BaseModel):
+    id: int
+    name = "John Doe"
+    signup_ts: Optional[datetime] = None
+    friends: List[int] = []
+
+
+external_data = {
+    "id": "123",
+    "signup_ts": "2017-06-01 12:22",
+    "friends": [1, "2", b"3"],
+}
+user = User(**external_data)
+print(user)
+print(user.id)
+
