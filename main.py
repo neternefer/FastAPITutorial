@@ -1,20 +1,11 @@
 # pylint: disable=no-name-in-module
 # pylint: disable=no-self-argument
-#Import FastAPI class
+
 #Import List etc for generic and internal types(type parameters)
 #Import Pydantic model
-from fastapi import FastAPI
 from typing import List, Set, Tuple, Dict, Optional
 from datetime import datetime
 from pydantic import BaseModel
-
-#Create FastAPI instance and store it in app variable
-app = FastAPI()
-#Create path operation decorator
-@app.get('/')
-#Create path operation function for get requests to "/"" endpoint
-async def root():
-    return {'message': 'Hello World'}
 
 #Generic types
 def process_items(items: List[str]):
