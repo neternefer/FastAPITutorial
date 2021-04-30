@@ -30,7 +30,7 @@ async def get_item(item_id: str, q: Optional[str] = None): #Optional q param
 
 #Bool values converted
 @app.get("/itemsss/{item_id}")
-async def read_item(item_id: str, q: Optional[str] = None, short: bool = False):
+async def read_item_again(item_id: str, q: Optional[str] = None, short: bool = False):
     item = {"item_id": item_id}
     if q:
         item.update({"q": q})
